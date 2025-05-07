@@ -46,7 +46,7 @@ const perfumes = [
   }
 ];
 
-const Home = () => {
+const Home = ({showToast}) => {
   const [cart, setCart] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const navigate = useNavigate();
@@ -119,6 +119,7 @@ const Home = () => {
     localStorage.removeItem('cart');
     localStorage.removeItem('total');
     setCart([]);
+    showToast();
     navigate('/login');
   };
 

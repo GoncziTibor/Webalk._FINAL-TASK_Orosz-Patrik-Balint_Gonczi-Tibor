@@ -18,7 +18,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home cart={cart} setCart={setCart} />} />
+        <Route path="/" element={<Home cart={cart} setCart={setCart} showToast={() => showToast('Sikeres kilépés!')}/>} />
         <Route 
           path="/register" 
           element={<Register showToast={() => showToast('Sikeres regisztráció!')} />}
@@ -27,7 +27,7 @@ function App() {
           path="/login" 
           element={<Login showToast={() => showToast('Sikeres bejelentkezés!')} />}
         />
-        <Route path="/orders" element={<Orders cart={cart} />} />
+        <Route path="/orders" element={<Orders cart={cart} showToast={() => showToast('Sikeres kilépés!')}/>} />
       </Routes>
       
       <ToastContainer 

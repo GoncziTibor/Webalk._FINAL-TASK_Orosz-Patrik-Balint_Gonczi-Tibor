@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Orders = () => {
+const Orders = ({showToast}) => {
   const location = useLocation();
   const navigate = useNavigate();
   const { cart, total } = location.state || { cart: [], total: 0 };
@@ -33,6 +33,7 @@ const Orders = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('cart');
     localStorage.removeItem('total');
+    showToast();
     navigate('/login');
   };
 
