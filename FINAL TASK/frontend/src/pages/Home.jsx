@@ -69,7 +69,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // Beolvassuk a kosarat a localStorage-ból, ha van
     const savedCart = JSON.parse(localStorage.getItem('cart'));
     const savedTotal = localStorage.getItem('total');
 
@@ -109,7 +108,6 @@ const Home = () => {
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handleOrderClick = () => {
-    // Kosár mentése a localStorage-ban
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('total', total);
 
@@ -118,6 +116,9 @@ const Home = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('total');
+    setCart([]);
     navigate('/login');
   };
 

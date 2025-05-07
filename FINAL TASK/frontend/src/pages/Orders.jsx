@@ -31,6 +31,8 @@ const Orders = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('cart');
+    localStorage.removeItem('total');
     navigate('/login');
   };
 
@@ -40,7 +42,6 @@ const Orders = () => {
   };
 
   const handleBackToHome = () => {
-    // Kosár mentése a localStorage-ban
     localStorage.setItem('cart', JSON.stringify(cart));
     localStorage.setItem('total', total);
 
