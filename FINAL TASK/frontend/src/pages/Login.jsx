@@ -7,10 +7,12 @@ const Login = ({ showToast }) => {
     email: '',
     password: ''
   });
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChanges = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
+    setError('');
   };
 
   const handleSubmit = async (e) => {
@@ -21,17 +23,18 @@ const Login = ({ showToast }) => {
 
       if (response.status === 200 || response.status === 201) {
         localStorage.setItem('token', response.data.token);
-
-        showToast();
+        showToast('Bejelentkezés sikeres!', 'success');
 
         setTimeout(() => {
           navigate('/');
         }, 2000);
       } else {
         console.log('Hiba a bejelentkezéskor: ', response);
+        setError('Hiba a bejelentkezés során!');
       }
     } catch (err) {
       console.log('Hiba történt: ', err.message);
+      setError('Hibás email és/vagy jelszó!');
     }
   };
 
@@ -39,6 +42,7 @@ const Login = ({ showToast }) => {
     <div className='flex justify-center items-center h-screen'>
       <div className='shadow-lg px-8 py-5 border w-72'>
         <h2 className='text-lg font-bold mb-4'>Bejelentkezés</h2>
+        {error && <div className="text-red-600 mb-4">{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className='block text-gray-700'>Email</label>
