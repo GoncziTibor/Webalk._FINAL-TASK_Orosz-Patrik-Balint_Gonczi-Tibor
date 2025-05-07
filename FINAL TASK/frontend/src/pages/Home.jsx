@@ -69,6 +69,14 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // Beolvassuk a kosarat a localStorage-ból, ha van
+    const savedCart = JSON.parse(localStorage.getItem('cart'));
+    const savedTotal = localStorage.getItem('total');
+
+    if (savedCart && savedTotal) {
+      setCart(savedCart);
+    }
+
     fetchUser();
   }, []);
 
@@ -94,11 +102,17 @@ const Home = () => {
 
   const clearCart = () => {
     setCart([]);
+    localStorage.removeItem('cart');
+    localStorage.removeItem('total');
   };
 
   const total = cart.reduce((acc, item) => acc + item.price, 0);
 
   const handleOrderClick = () => {
+    // Kosár mentése a localStorage-ban
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total);
+
     navigate('/orders', { state: { cart, total } });
   };
 

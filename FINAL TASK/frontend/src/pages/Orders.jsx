@@ -39,6 +39,14 @@ const Orders = () => {
     setErrorMessage('Ez egy demó oldal, nem lehet rendelni.');
   };
 
+  const handleBackToHome = () => {
+    // Kosár mentése a localStorage-ban
+    localStorage.setItem('cart', JSON.stringify(cart));
+    localStorage.setItem('total', total);
+
+    navigate('/');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-10">
@@ -105,6 +113,13 @@ const Orders = () => {
             Megrendelem
           </button>
         </form>
+
+        <button
+          onClick={handleBackToHome}
+          className="mt-6 w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition"
+        >
+          Vissza a főoldalra
+        </button>
       </div>
     </div>
   );
