@@ -17,11 +17,12 @@ const Login = () => {
       try{
         const response = await axios.post('http://localhost:3000/auth/login', values)
         if(response.status === 201){
+          localStorage.setItem('token', response.data.token)
           navigate('/')
         }
 
       } catch(err){
-        console.log(err)
+        console.log(err.message)
       }
     
     }
