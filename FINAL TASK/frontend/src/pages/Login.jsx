@@ -23,7 +23,7 @@ const Login = ({ showToast }) => {
 
       if (response.status === 200 || response.status === 201) {
         localStorage.setItem('token', response.data.token);
-        showToast('Bejelentkezés sikeres!', 'success');
+        showToast();
 
         setTimeout(() => {
           navigate('/');
