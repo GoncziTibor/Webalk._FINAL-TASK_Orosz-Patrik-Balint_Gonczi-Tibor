@@ -1,16 +1,45 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Orders = () => {
-  const location = useLocation();  // A navigate-ben átadott adatokat itt kapjuk meg
-  const { cart, total } = location.state || { cart: [], total: 0 };  // Ha nincs adat, akkor üres
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { cart, total } = location.state || { cart: [], total: 0 };
+
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const fetchUser = async () => {
+    try {
+      const token = localStorage.getItem('token');
+      const response = await axios.get('http://localhost:3000/auth/home', {
+        headers: {
+          "Authorization": `Bearer ${token}`
+        }
+      });
+      if (response.status !== 201) {
+        navigate('/login');
+      }
+    } catch (err) {
+      console.error('Auth error:', err);
+      navigate('/login');
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setErrorMessage('Ez egy demó oldal, nem lehet rendelni.');
+  };
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
 
   return (
     <div className="p-6">
       <h2 className="text-4xl font-bold text-gray-800 text-center mb-6">Rendelés áttekintése</h2>
 
       <div className="max-w-2xl mx-auto">
-        {/* Kosár tartalom */}
         {cart.length === 0 ? (
           <p className="text-gray-500">A kosár üres.</p>
         ) : (
@@ -23,15 +52,17 @@ const Orders = () => {
               ))}
             </ul>
 
-            {/* Kosár összesen */}
             <div className="mt-4 text-right font-semibold text-lg">
               Összesen: {total.toLocaleString()} Ft
             </div>
           </>
         )}
 
-        {/* Űrlap a rendeléshez */}
-        <form className="mt-6 space-y-4">
+        {errorMessage && (
+          <p className="text-red-500 text-center mt-4">{errorMessage}</p>
+        )}
+
+        <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="name" className="block text-gray-700">Név</label>
             <input
@@ -77,7 +108,6 @@ const Orders = () => {
             />
           </div>
 
-          {/* Megrendelés gomb */}
           <button
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
