@@ -102,17 +102,30 @@ const Home = () => {
     navigate('/orders', { state: { cart, total } });
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate('/login');
+  };
+
   return (
     <div className="relative min-h-screen bg-gray-50">
       <header className="flex justify-between items-center px-6 py-4 bg-white shadow-md sticky top-0 z-10">
-        <h1 className="text-2xl font-bold text-gray-800">ParfümVilág</h1>
-        <div className="relative cursor-pointer text-2xl" onClick={toggleCart}>
-          🛒
-          {cart.length > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-              {cart.length}
-            </span>
-          )}
+        <h1 className="text-3xl font-bold text-gray-800">ParfümVilág</h1>
+        <div className="flex items-center space-x-4">
+          <div className="relative cursor-pointer text-2xl" onClick={toggleCart}>
+            🛒
+            {cart.length > 0 && (
+              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                {cart.length}
+              </span>
+            )}
+          </div>
+          <button
+            onClick={handleLogout}
+            className="bg-red-500 text-white px-4 py-1 rounded-lg hover:bg-red-600 transition text-sm"
+          >
+            Kijelentkezés
+          </button>
         </div>
       </header>
 
