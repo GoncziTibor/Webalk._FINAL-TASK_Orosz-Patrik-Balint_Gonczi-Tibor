@@ -159,7 +159,7 @@ const Home = () => {
       <main className="p-6">
         <div className="text-center my-10">
           <h2 className="text-4xl font-bold text-gray-800">Jean Paul Gaultier Kollekció</h2>
-          <p className="text-lg text-gray-600 mt-2">Válassz kiszerelést és tedd kosárba kedvenc illatod!</p>
+          <p className="text-lg text-gray-600 mt-2">Válassz kiszerelést, tedd kosárba, és rendeld meg kedvenc illatod!</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6">
